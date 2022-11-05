@@ -13,14 +13,17 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.table.TableUtils;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import me.clip.placeholderapi.PlaceholderAPI;
 import me.infinity.groupstats.database.DatabaseFactory;
 import me.infinity.groupstats.util.GroupStatsTable;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -36,6 +39,24 @@ public class GroupProfileFactory implements Listener {
         this.databaseFactory = databaseFactory;
         this.databaseFactory.getInstance().getServer().getPluginManager().registerEvents(this, databaseFactory.getInstance());
         this.databaseFactory.getInstance().getServer().getScheduler().runTaskTimer(databaseFactory.getInstance(), new GroupProfileTask(this), 20 * 20, 20 * 60 * 5);
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        Arrays.asList("Games Played : %bedwars1058_group_stats_Solo_gamesplayed%",
+                "Beds Broken : %bedwars1058_group_stats_Solo_bedsbroken%",
+                "Kills : %bedwars1058_group_stats_Solo_kills%",
+                "Deaths : %bedwars1058_group_stats_Solo_deaths%",
+                "Final Kills : %bedwars1058_group_stats_Solo_finalkills%",
+                "Final Deaths : %bedwars1058_group_stats_Solo_finaldeaths%",
+                "Wins : %bedwars1058_group_stats_Solo_wins%",
+                "Losses : %bedwars1058_group_stats_Solo_losses%",
+                "Winstreak : %bedwars1058_group_stats_Solo_winstreak%",
+                "Highest Winstreak : %bedwars1058_group_stats_Solo_highestwinstreak%",
+                "KDR : %bedwars1058_group_stats_Solo_kdr%",
+                "Final KDR : %bedwars1058_group_stats_Solo_finalkdr%").forEach(string -> {
+                    event.getPlayer().sendMessage(PlaceholderAPI.setPlaceholders(event.getPlayer(), string));
+        });
     }
 
     @EventHandler
