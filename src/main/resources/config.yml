@@ -1,0 +1,8 @@
+
+DATABASE: # SQL Database obviously, If I had used mongo or redis then spigot community would have killed me. ;-;
+  ENABLED: false
+  ADDRESS: "localhost:3600"
+  DATABASE: "myDatabase"
+  USERNAME: "myUsername"
+  PASSWORD: "myPassword"
+  SSL: false
