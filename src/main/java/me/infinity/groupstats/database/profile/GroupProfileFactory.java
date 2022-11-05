@@ -148,6 +148,7 @@ public class GroupProfileFactory implements Listener {
             if (event.getArena().isPlayer(player)) {
                 groupProfile.setFinalDeaths(groupProfile.getFinalDeaths() + 1);
                 groupProfile.setLosses(groupProfile.getLosses() + 1);
+                groupProfile.setWinstreak(0);
             }
 
             Player damager = event.getLastDamager();
