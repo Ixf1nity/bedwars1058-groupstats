@@ -2,7 +2,6 @@ package me.infinity.groupstats.core;
 
 import lombok.RequiredArgsConstructor;
 import me.infinity.groupstats.api.GroupProfile;
-import me.infinity.groupstats.api.IGroupStatsAPI;
 import me.infinity.groupstats.core.factory.DatabaseFactory;
 
 import java.sql.SQLException;
@@ -11,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-public class GroupStatsAPI implements IGroupStatsAPI {
+public class GroupStatsAPI implements me.infinity.groupstats.api.GroupStatsAPI {
 
     private final DatabaseFactory databaseFactory;
 

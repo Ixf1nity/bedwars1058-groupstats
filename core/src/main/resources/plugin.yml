@@ -1,0 +1,7 @@
+main: "me.infinity.groupstats.core.GroupStatsPlugin"
+name: "BedWars1058-GroupStats"
+version: '1.0-SNAPSHOT'
+softdepend:
+  - "BedWars1058"
+  - "PlaceholderAPI"
+author: "16y"

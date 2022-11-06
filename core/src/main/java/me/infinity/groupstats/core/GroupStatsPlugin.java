@@ -3,7 +3,7 @@ package me.infinity.groupstats.core;
 import com.andrei1058.bedwars.api.BedWars;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import me.infinity.groupstats.api.IGroupStatsAPI;
+import me.infinity.groupstats.api.GroupStatsAPI;
 import me.infinity.groupstats.core.factory.DatabaseFactory;
 import me.infinity.groupstats.core.util.GroupStatsExpansion;
 import org.bstats.bukkit.Metrics;
@@ -35,7 +35,7 @@ public final class GroupStatsPlugin extends JavaPlugin {
         this.databaseFactory = new DatabaseFactory(this);
         new GroupStatsExpansion().register();
 
-        this.getServer().getServicesManager().register(IGroupStatsAPI.class, new GroupStatsAPI(databaseFactory), this, ServicePriority.Low);
+        this.getServer().getServicesManager().register(GroupStatsAPI.class, new me.infinity.groupstats.core.GroupStatsAPI(databaseFactory), this, ServicePriority.Low);
     }
 
     @Override
