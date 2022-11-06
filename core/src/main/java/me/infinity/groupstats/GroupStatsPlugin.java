@@ -51,9 +51,7 @@ public final class GroupStatsPlugin extends JavaPlugin {
             public boolean deleteGroupProfile(String group, UUID playerUUID) {
                 try {
                     databaseFactory.getGroupProfileFactory().getDaoManagerMap().get(group).deleteById(playerUUID);
-                    if (databaseFactory.getGroupProfileFactory().getCache().get(group).containsKey(playerUUID)) {
-                        databaseFactory.getGroupProfileFactory().getCache().remove(playerUUID);
-                    }
+                    databaseFactory.getGroupProfileFactory().getCache().get(group).remove(playerUUID);
                 } catch (SQLException e) {
                     // problem occurred
                     return false;
