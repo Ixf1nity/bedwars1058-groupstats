@@ -1,8 +1,8 @@
-package me.infinity.groupstats.papi;
+package me.infinity.groupstats.util;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.infinity.groupstats.GroupStatsPlugin;
-import me.infinity.groupstats.database.profile.GroupProfile;
+import me.infinity.groupstats.profile.GroupProfile;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

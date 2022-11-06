@@ -39,14 +39,23 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
                             <relocations>
                                 <relocation>
                                     <pattern>com.zaxxer.hikari</pattern>
                                     <shadedPattern>me.infinity.groupstats.libs.hikari</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>org.jodd.jodd-db</pattern>
-                                    <shadedPattern>me.infinity.groupstats.libs.jodd-db</shadedPattern>
+                                    <pattern>org.slf4j.slf4j-nop</pattern>
+                                    <shadedPattern>me.infinity.groupstats.libs.slf4j-nop</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.j256.ormlite.ormlite-jdbc</pattern>
+                                    <shadedPattern>me.infinity.groupstats.libs.ormlite-jdbc</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.bstats</pattern>
+                                    <shadedPattern>me.infinity.groupstats.libs.bstats-bukkit</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
@@ -86,6 +95,10 @@
         <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
@@ -129,21 +142,28 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.j256.ormlite</groupId>
+            <artifactId>ormlite-jdbc</artifactId>
+            <version>6.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>com.andrei1058.bedwars</groupId>
             <artifactId>bedwars-api</artifactId>
             <version>22.7</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-jdbc</artifactId>
-            <version>6.1</version>
-        </dependency>
-        <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
             <version>2.11.2</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.0.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

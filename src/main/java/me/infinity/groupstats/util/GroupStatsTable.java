@@ -4,7 +4,7 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseFieldConfig;
 import com.j256.ormlite.table.DatabaseTableConfig;
 import lombok.experimental.UtilityClass;
-import me.infinity.groupstats.database.profile.GroupProfile;
+import me.infinity.groupstats.profile.GroupProfile;
 import java.util.Arrays;
 
 @UtilityClass

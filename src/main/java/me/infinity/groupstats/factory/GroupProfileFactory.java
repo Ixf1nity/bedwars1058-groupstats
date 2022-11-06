@@ -1,4 +1,4 @@
-package me.infinity.groupstats.database.profile;
+package me.infinity.groupstats.factory;
 
 import com.andrei1058.bedwars.api.arena.GameState;
 import com.andrei1058.bedwars.api.arena.IArena;
@@ -13,17 +13,15 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.table.TableUtils;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import me.clip.placeholderapi.PlaceholderAPI;
-import me.infinity.groupstats.database.DatabaseFactory;
+import me.infinity.groupstats.profile.GroupProfile;
+import me.infinity.groupstats.profile.GroupProfileTask;
 import me.infinity.groupstats.util.GroupStatsTable;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,7 +36,7 @@ public class GroupProfileFactory implements Listener {
     public GroupProfileFactory(DatabaseFactory databaseFactory) {
         this.databaseFactory = databaseFactory;
         this.databaseFactory.getInstance().getServer().getPluginManager().registerEvents(this, databaseFactory.getInstance());
-        this.databaseFactory.getInstance().getServer().getScheduler().runTaskTimer(databaseFactory.getInstance(), new GroupProfileTask(this), 20 * 20, 20 * 60 * 5);
+        this.databaseFactory.getInstance().getServer().getScheduler().runTaskTimerAsynchronously(databaseFactory.getInstance(), new GroupProfileTask(this), 20 * 20, 20 * 60 * 5);
 
         databaseFactory.getInstance().getBedWarsAPI().getConfigs().getMainConfig().getList("arenaGroups").forEach(string -> {
             try {
@@ -126,7 +124,13 @@ public class GroupProfileFactory implements Listener {
                 groupProfile.setGamesPlayed(groupProfile.getGamesPlayed() + 1);
             }
 
-            daoManagerMap.get(event.getArena().getGroup()).update(cache.get(event.getArena().getGroup()).get(winner));
+            databaseFactory.getHikariExecutor().execute(() -> {
+                try {
+                    daoManagerMap.get(event.getArena().getGroup()).update(cache.get(event.getArena().getGroup()).get(winner));
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }
     }
 
@@ -159,7 +163,13 @@ public class GroupProfileFactory implements Listener {
             if (damager != null && event.getArena().isPlayer(damager) && killerTeam != null) {
                 GroupProfile damagerStats = cache.get(event.getArena().getGroup()).get(damager.getUniqueId());
                 damagerStats.setFinalKills(damagerStats.getFinalKills() + 1);
-                daoManagerMap.get(event.getArena().getGroup()).update(cache.get(event.getArena().getGroup()).get(event.getPlayer().getUniqueId()));
+                databaseFactory.getHikariExecutor().execute(() -> {
+                    try {
+                        daoManagerMap.get(event.getArena().getGroup()).update(cache.get(event.getArena().getGroup()).get(event.getPlayer().getUniqueId()));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
             }
 
         } else {
@@ -171,22 +181,25 @@ public class GroupProfileFactory implements Listener {
                 damagerStats.setKills(damagerStats.getKills() + 1);
             }
         }
-        daoManagerMap.get(event.getArena().getGroup()).update(cache.get(event.getArena().getGroup()).get(event.getPlayer().getUniqueId()));
+        databaseFactory.getHikariExecutor().execute(() -> {
+            try {
+                daoManagerMap.get(event.getArena().getGroup()).update(cache.get(event.getArena().getGroup()).get(event.getPlayer().getUniqueId()));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public void saveAll() {
-        databaseFactory.getHikariExecutor().execute(() -> {
-            cache.forEach(((s, uuidGroupProfileMap) -> {
-                uuidGroupProfileMap.values().forEach(profile -> {
-                    try {
-                        daoManagerMap.get(s).update(profile);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-            }));
-            databaseFactory.getInstance().getLogger().info("Saving player data, Might cause lag spikes for a short amount of time.");
-        });
+        cache.forEach(((s, uuidGroupProfileMap) -> {
+            uuidGroupProfileMap.values().forEach(profile -> {
+                try {
+                    daoManagerMap.get(s).update(profile);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }));
     }
 }
 
