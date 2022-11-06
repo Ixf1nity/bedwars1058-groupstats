@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface GroupStatsAPI {
+public interface IGroupStatsAPI {
 
     Optional<GroupProfile> getGroupProfile(String group, UUID playerUUID);
 
