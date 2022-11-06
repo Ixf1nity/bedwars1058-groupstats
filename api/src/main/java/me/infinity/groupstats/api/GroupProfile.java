@@ -1,4 +1,4 @@
-package me.infinity.groupstats.profile;
+package me.infinity.groupstats.api;
 
 import lombok.Data;
 

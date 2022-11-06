@@ -1,10 +1,10 @@
-package me.infinity.groupstats.util;
+package me.infinity.groupstats.core.util;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseFieldConfig;
 import com.j256.ormlite.table.DatabaseTableConfig;
 import lombok.experimental.UtilityClass;
-import me.infinity.groupstats.profile.GroupProfile;
+import me.infinity.groupstats.api.GroupProfile;
 import java.util.Arrays;
 
 @UtilityClass

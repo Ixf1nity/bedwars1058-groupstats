@@ -1,7 +1,7 @@
-package me.infinity.groupstats.profile;
+package me.infinity.groupstats.core.profile;
 
 import lombok.RequiredArgsConstructor;
-import me.infinity.groupstats.factory.GroupProfileFactory;
+import me.infinity.groupstats.core.factory.GroupProfileFactory;
 
 @RequiredArgsConstructor
 public class GroupProfileTask implements Runnable {

@@ -1,4 +1,4 @@
-package me.infinity.groupstats.factory;
+package me.infinity.groupstats.core.factory;
 
 import com.j256.ormlite.jdbc.DataSourceConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
@@ -6,7 +6,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import me.infinity.groupstats.GroupStatsPlugin;
+import me.infinity.groupstats.core.GroupStatsPlugin;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.File;

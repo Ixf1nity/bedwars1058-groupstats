@@ -1,11 +1,11 @@
-package me.infinity.groupstats;
+package me.infinity.groupstats.core;
 
 import com.andrei1058.bedwars.api.BedWars;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.infinity.groupstats.api.IGroupStatsAPI;
-import me.infinity.groupstats.factory.DatabaseFactory;
-import me.infinity.groupstats.util.GroupStatsExpansion;
+import me.infinity.groupstats.core.factory.DatabaseFactory;
+import me.infinity.groupstats.core.util.GroupStatsExpansion;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.ServicePriority;

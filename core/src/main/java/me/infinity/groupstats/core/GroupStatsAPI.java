@@ -1,9 +1,9 @@
-package me.infinity.groupstats;
+package me.infinity.groupstats.core;
 
 import lombok.RequiredArgsConstructor;
+import me.infinity.groupstats.api.GroupProfile;
 import me.infinity.groupstats.api.IGroupStatsAPI;
-import me.infinity.groupstats.factory.DatabaseFactory;
-import me.infinity.groupstats.profile.GroupProfile;
+import me.infinity.groupstats.core.factory.DatabaseFactory;
 
 import java.sql.SQLException;
 import java.util.Map;

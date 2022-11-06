@@ -1,7 +1,5 @@
 package me.infinity.groupstats.api;
 
-import me.infinity.groupstats.profile.GroupProfile;
-
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;

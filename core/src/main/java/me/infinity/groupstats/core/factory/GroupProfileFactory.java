@@ -1,4 +1,4 @@
-package me.infinity.groupstats.factory;
+package me.infinity.groupstats.core.factory;
 
 import com.andrei1058.bedwars.api.arena.GameState;
 import com.andrei1058.bedwars.api.arena.IArena;
@@ -13,9 +13,9 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.table.TableUtils;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import me.infinity.groupstats.profile.GroupProfile;
-import me.infinity.groupstats.profile.GroupProfileTask;
-import me.infinity.groupstats.util.GroupStatsTable;
+import me.infinity.groupstats.api.GroupProfile;
+import me.infinity.groupstats.core.profile.GroupProfileTask;
+import me.infinity.groupstats.core.util.GroupStatsTable;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

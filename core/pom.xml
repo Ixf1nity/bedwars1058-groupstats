@@ -153,8 +153,7 @@
         <dependency>
             <groupId>me.infinity.groupstats</groupId>
             <artifactId>api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
