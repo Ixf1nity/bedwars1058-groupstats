@@ -39,23 +39,14 @@ public class GroupProfileFactory implements Listener {
         this.databaseFactory = databaseFactory;
         this.databaseFactory.getInstance().getServer().getPluginManager().registerEvents(this, databaseFactory.getInstance());
         this.databaseFactory.getInstance().getServer().getScheduler().runTaskTimer(databaseFactory.getInstance(), new GroupProfileTask(this), 20 * 20, 20 * 60 * 5);
-    }
 
-    @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        Arrays.asList("Games Played : %bedwars1058_group_stats_Solo_gamesplayed%",
-                "Beds Broken : %bedwars1058_group_stats_Solo_bedsbroken%",
-                "Kills : %bedwars1058_group_stats_Solo_kills%",
-                "Deaths : %bedwars1058_group_stats_Solo_deaths%",
-                "Final Kills : %bedwars1058_group_stats_Solo_finalkills%",
-                "Final Deaths : %bedwars1058_group_stats_Solo_finaldeaths%",
-                "Wins : %bedwars1058_group_stats_Solo_wins%",
-                "Losses : %bedwars1058_group_stats_Solo_losses%",
-                "Winstreak : %bedwars1058_group_stats_Solo_winstreak%",
-                "Highest Winstreak : %bedwars1058_group_stats_Solo_highestwinstreak%",
-                "KDR : %bedwars1058_group_stats_Solo_kdr%",
-                "Final KDR : %bedwars1058_group_stats_Solo_finalkdr%").forEach(string -> {
-                    event.getPlayer().sendMessage(PlaceholderAPI.setPlaceholders(event.getPlayer(), string));
+        databaseFactory.getInstance().getBedWarsAPI().getConfigs().getMainConfig().getList("arenaGroups").forEach(string -> {
+            try {
+                TableUtils.createTableIfNotExists(databaseFactory.getConnectionSource(), GroupStatsTable.getDatabaseTableConfig(string));
+                daoManagerMap.putIfAbsent(string, DaoManager.createDao(databaseFactory.getConnectionSource(), GroupStatsTable.getDatabaseTableConfig(string)));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 
@@ -66,15 +57,6 @@ public class GroupProfileFactory implements Listener {
             databaseFactory.getInstance().getLogger().warning("The arena '" + event.getArena().getArenaName() + "' doesn't have any group allotted to it. GroupStats won't be affected due to this.");
             return;
         }
-        TableUtils.createTableIfNotExists(
-                databaseFactory.getInstance().getDatabaseFactory().getConnectionSource(),
-                GroupStatsTable.getDatabaseTableConfig(event.getArena().getGroup())
-        );
-        daoManagerMap.putIfAbsent(
-                event.getArena().getGroup(),
-                DaoManager.createDao(databaseFactory.getInstance().getDatabaseFactory().getConnectionSource(),
-                        GroupStatsTable.getDatabaseTableConfig(event.getArena().getGroup()))
-        );
         cache.putIfAbsent(event.getArena().getGroup(), new ConcurrentHashMap<>());
         cache.get(event.getArena().getGroup()).put(event.getPlayer().getUniqueId(), daoManagerMap.get(event.getArena().getGroup()).createIfNotExists(new GroupProfile(event.getPlayer().getUniqueId())));
     }
