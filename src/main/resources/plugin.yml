@@ -1,6 +1,0 @@
-name: BedWars1058-GroupStats
-version: '${project.version}'
-main: me.infinity.groupstats.GroupStatsPlugin
-softdepend: [ BedWars1058, PlaceholderAPI ]
-authors: [ I6y ]
-description: Addon for group-stats feature for bedwars1058.
