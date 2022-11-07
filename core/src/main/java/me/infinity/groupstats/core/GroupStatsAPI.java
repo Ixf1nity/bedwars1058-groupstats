@@ -16,7 +16,11 @@ public class GroupStatsAPI implements me.infinity.groupstats.api.GroupStatsAPI {
 
     @Override
     public Optional<GroupProfile> getGroupProfile(String group, UUID playerUUID) {
-        return Optional.ofNullable(databaseFactory.getGroupProfileFactory().getCache().get(group).get(playerUUID));
+        try {
+            return Optional.ofNullable(databaseFactory.getGroupProfileFactory().getDaoManagerMap().get(group).queryForId(playerUUID));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
