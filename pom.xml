@@ -10,6 +10,7 @@
     <modules>
         <module>core</module>
         <module>api</module>
+        <module>universal</module>
     </modules>
     <packaging>pom</packaging>
 
