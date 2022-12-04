@@ -21,7 +21,9 @@
 |`%bw1058_groupstats_<group>_bblr%`            |player's beds broken/lost ratio.
 |`%bw1058_groupstats_<group>_wlr%`            |player's win/lose ratio.            |            |
 
-### Upcoming Feature : Developer API
+### Upcoming Features
+* Developer API
+* Discord Statistics
 
 Questions? [Join the ArcadeLabs Discord Server](https://discord.gg/c9VeqdsJ9R)
 
