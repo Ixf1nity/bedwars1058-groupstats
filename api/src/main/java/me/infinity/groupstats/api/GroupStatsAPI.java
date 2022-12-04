@@ -6,14 +6,16 @@ import java.util.UUID;
 
 public interface GroupStatsAPI {
 
-    Optional<GroupProfile> getGroupProfile(String group, UUID playerUUID);
+  Optional<GroupProfile> getGroupProfile(String group, UUID playerUUID);
 
-    boolean deleteGroupProfile(String group, UUID playerUUID);
-    boolean saveGroupProfile(String group, GroupProfile groupProfile);
+  boolean deleteGroupProfile(String group, UUID playerUUID);
 
-    boolean deleteGroupProfiles(String group);
+  boolean saveGroupProfile(String group, GroupProfile groupProfile);
 
-    Optional<Map<UUID, GroupProfile>> getGroupProfiles(String group);
-    Optional<Map<String, Map<UUID, GroupProfile>>> getGroupProfiles();
+  boolean deleteGroupProfiles(String group);
+
+  Optional<Map<UUID, GroupProfile>> getGroupProfiles(String group);
+
+  Optional<Map<String, Map<UUID, GroupProfile>>> getGroupProfiles();
 
 }
