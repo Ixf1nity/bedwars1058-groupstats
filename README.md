@@ -4,12 +4,12 @@
 ## Placeholders
 
 |Placeholder                          |Returns                      |
-|----------------|-------------------------------|-----------------------------|
-|` %bw1058_groupstats_<group>_gamesPlayed%`            |how many games the player has played.            |
-|`%bw1058_groupstats_<group>_bedsBroken%`            |how many beds the player has broken.            |
-|`%bw1058_groupstats_<group>_bedsLost%`            |how many beds the player has lost.            |
-|`%bw1058_groupstats_<group>_kills%`            |how many kills the player has.
-|`%bw1058_groupstats_<group>_deaths%`            |how many times the player has died.            |            ||`%bw1058_groupstats_<group>_bedsLost%`            |how many beds the player has lost.            |
+|-----------------------------------------------|-----------------------------|
+|` %bw1058_groupstats_<group>_gamesPlayed%`            |player's games played.            |
+|`%bw1058_groupstats_<group>_bedsBroken%`            |player's beds broken.            |
+|`%bw1058_groupstats_<group>_bedsLost%`            |player's beds lost.            |
+|`%bw1058_groupstats_<group>_kills%`            |player's kills.
+|`%bw1058_groupstats_<group>_deaths%`            |player's deaths.            |            ||`%bw1058_groupstats_<group>_bedsLost%`            |.            |
 |`%bw1058_groupstats_<group>_finalKills%`            |how many final kills the player has.            |
 |`%bw1058_groupstats_<group>_finalDeaths%`            |how many times player has been eliminated.            |
 |`%bw1058_groupstats_<group>_wins%`            |how many times player has been won.            |
