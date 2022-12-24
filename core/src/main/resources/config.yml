@@ -1,0 +1,9 @@
+# Database credentials
+DATABASE:
+  ENABLED: false # false = SQLite, true = MySQL
+  ADDRESS: "localhost"
+  PORT: 3306
+  DATABASE: "db"
+  USERNAME: "user"
+  PASSWORD: "pass"
+  SSL: false

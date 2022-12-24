@@ -1,0 +1,6 @@
+name: BedWars1058-GroupStats
+version: '${project.version}'
+main: me.infinity.groupstats.core.GroupStatsPlugin
+softdepend: [ BedWars1058 ]
+authors: [ I6y ]
+description: Addon for bedwars1058 to store and fetch player statistics and sorting into groups.
