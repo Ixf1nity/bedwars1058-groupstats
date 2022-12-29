@@ -206,5 +206,4 @@ public class GroupStatsListener implements Listener {
       }
     }
   }
-
 }

@@ -65,14 +65,15 @@ public class DatabaseManager {
   }
 
   private void loadCredentials() {
-    ConfigurationSection configuration = instance.getConfig().getConfigurationSection("DATABASE");
-    this.dbEnabled = configuration.getBoolean("ENABLED");
-    this.address = configuration.getString("ADDRESS");
-    this.port = configuration.getInt("PORT");
-    this.database = configuration.getString("DATABASE");
-    this.username = configuration.getString("USERNAME");
-    this.password = configuration.getString("PASSWORD");
-    this.ssl = configuration.getBoolean("SSL");
+    ConfigurationSection configuration = instance.getConfig()
+        .getConfigurationSection("database-credentials");
+    this.dbEnabled = configuration.getBoolean("enabled");
+    this.address = configuration.getString("address");
+    this.port = configuration.getInt("port");
+    this.database = configuration.getString("database");
+    this.username = configuration.getString("username");
+    this.password = configuration.getString("password");
+    this.ssl = configuration.getBoolean("useSSL");
   }
 
   public void closeDatabase() {

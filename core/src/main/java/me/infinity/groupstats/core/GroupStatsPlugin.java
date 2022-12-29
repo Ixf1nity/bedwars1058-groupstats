@@ -18,6 +18,7 @@ public final class GroupStatsPlugin extends JavaPlugin implements CommandExecuto
 
   private boolean startupCompleted = false;
   private boolean bw1058 = false;
+
   public static final Gson GSON = new GsonBuilder()
       .excludeFieldsWithoutExposeAnnotation()
       .disableHtmlEscaping()
@@ -54,13 +55,16 @@ public final class GroupStatsPlugin extends JavaPlugin implements CommandExecuto
     new GroupStatsExpansion(this).register();
 
     this.getLogger().info("Loaded the plugin successfully.");
+    this.startupCompleted = true;
   }
 
   @Override
   public void onDisable() {
     this.getLogger().info("Disabling the plugin, please wait...");
-    this.groupManager.saveAllAsync();
-    this.databaseManager.closeDatabase();
+    if (startupCompleted) {
+      this.groupManager.saveAllAsync();
+      this.databaseManager.closeDatabase();
+    }
     this.getLogger().info("Plugin disabled successfully.");
   }
 }

@@ -38,8 +38,9 @@ public class GroupManager implements Listener {
 
     if (instance.isBw1058()) {
       this.groupProfileCache = new ConcurrentHashMap<>();
+      int updateTimer = instance.getConfig().getInt("update-timer");
       instance.getServer().getScheduler()
-          .runTaskTimer(instance, new GroupUpdateTask(this), 20 * 60, 20 * 60 * 5);
+          .runTaskTimer(instance, new GroupUpdateTask(this), 20 * 60, 20L * 60 * updateTimer);
       instance.getServer().getPluginManager().registerEvents(this, instance);
       new GroupStatsListener(instance);
     }
