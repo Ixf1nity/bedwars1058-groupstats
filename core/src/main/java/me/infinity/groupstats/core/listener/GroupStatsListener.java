@@ -40,7 +40,7 @@ public class GroupStatsListener implements Listener {
       if (event.getArena().getGroup() == null) {
         instance.getLogger().warning(
             "The arena '" + event.getArena().getArenaName()
-                + "' doesn't have any group allotted to it. GroupStats won't be affected due to this.");
+                + "' doesn't have any group allotted to it. GroupStats won't work due to this.");
         return;
       }
 
@@ -57,7 +57,7 @@ public class GroupStatsListener implements Listener {
     if (event.getArena().getGroup().equals("Default")) {
       instance.getLogger().warning(
           "The arena '" + event.getArena().getArenaName()
-              + "' doesn't have any group allotted to it. GroupStats won't be affected due to this.");
+              + "' doesn't have any group allotted to it. GroupStats won't work due to this.");
       return;
     }
 
@@ -80,7 +80,7 @@ public class GroupStatsListener implements Listener {
     if (event.getArena().getGroup().equals("Default")) {
       instance.getLogger().warning(
           "The arena '" + event.getArena().getArenaName()
-              + "' doesn't have any group allotted to it. GroupStats won't be affected due to this.");
+              + "' doesn't have any group allotted to it. GroupStats won't work due to this.");
       return;
     }
     GroupNode victimStats = instance.getGroupManager().getGroupProfileCache()
@@ -113,7 +113,7 @@ public class GroupStatsListener implements Listener {
     if (event.getArena().getGroup().equals("Default")) {
       instance.getLogger().warning(
           "The arena '" + event.getArena().getArenaName()
-              + "' doesn't have any group allotted to it. GroupStats won't be affected due to this.");
+              + "' doesn't have any group allotted to it. GroupStats won't work due to this.");
       return;
     }
     for (UUID winner : event.getWinners()) {
@@ -152,7 +152,7 @@ public class GroupStatsListener implements Listener {
     if (event.getArena().getGroup().equals("Default")) {
       instance.getLogger().warning(
           "The arena '" + event.getArena().getArenaName()
-              + "' doesn't have any group allotted to it. GroupStats won't be affected due to this.");
+              + "' doesn't have any group allotted to it. GroupStats won't work due to this.");
       return;
     }
 

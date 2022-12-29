@@ -129,7 +129,7 @@ public class GroupStatsExpansion extends PlaceholderExpansion {
           result = String.valueOf(this.getRatio(w, l));
           break;
         default:
-          result = "INVAILD_STATISTIC";
+          result = "INVALID_STATISTICS";
           break;
       }
       return result;
@@ -137,7 +137,7 @@ public class GroupStatsExpansion extends PlaceholderExpansion {
 
     GroupNode groupNode = stats.get(groupName);
     if (groupNode == null) {
-      return "0";
+      return "NO_DATA";
     }
 
     switch (statisticType) {
@@ -187,7 +187,7 @@ public class GroupStatsExpansion extends PlaceholderExpansion {
         result = String.valueOf(this.getRatio(groupNode, "wlr"));
         break;
       default:
-        result = "INVAILD_STATISTIC";
+        result = "INVALID_STATISTIC";
         break;
     }
     return result;
