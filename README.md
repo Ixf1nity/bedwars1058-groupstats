@@ -2,9 +2,10 @@
  A BedWars1058 addon that adds placeholders for getting statistics of an player filtered by a Arena Group.  Supports MySQL and SQLite. 
  
 ## Placeholders
+#### NOTE:  Use overAll as <group> to get overall statistics. Example, %groupstats_overAll_gamesPlayed%
 
 |Placeholder                          |Returns                      |
-|-----------------------------------------------|-----------------------------|
+|----------------|-------------------------------|-----------------------------|
 |` %groupstats_<group>_gamesPlayed%`            |how many games the player has played.            |
 |`%groupstats_<group>_bedsBroken%`            |how many beds the player has broken.            |
 |`%groupstats_<group>_bedsLost%`            |how many beds the player has lost.            |
