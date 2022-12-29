@@ -54,7 +54,7 @@ public class GroupStatsListener implements Listener {
   @EventHandler
   @SneakyThrows
   public void onBedBreak(PlayerBedBreakEvent event) {
-    if (event.getArena().getGroup() == null) {
+    if (event.getArena().getGroup().equals("Default")) {
       instance.getLogger().warning(
           "The arena '" + event.getArena().getArenaName()
               + "' doesn't have any group allotted to it. GroupStats won't be affected due to this.");
@@ -77,7 +77,7 @@ public class GroupStatsListener implements Listener {
   @EventHandler
   @SneakyThrows
   public void onPlayerKill(PlayerKillEvent event) {
-    if (event.getArena().getGroup() == null) {
+    if (event.getArena().getGroup().equals("Default")) {
       instance.getLogger().warning(
           "The arena '" + event.getArena().getArenaName()
               + "' doesn't have any group allotted to it. GroupStats won't be affected due to this.");
@@ -110,7 +110,7 @@ public class GroupStatsListener implements Listener {
   @EventHandler
   @SneakyThrows
   public void onGameEnd(GameEndEvent event) {
-    if (event.getArena().getGroup() == null) {
+    if (event.getArena().getGroup().equals("Default")) {
       instance.getLogger().warning(
           "The arena '" + event.getArena().getArenaName()
               + "' doesn't have any group allotted to it. GroupStats won't be affected due to this.");
@@ -149,7 +149,7 @@ public class GroupStatsListener implements Listener {
   @EventHandler
   @SneakyThrows
   public void onArenaLeave(PlayerLeaveArenaEvent event) {
-    if (event.getArena().getGroup() == null) {
+    if (event.getArena().getGroup().equals("Default")) {
       instance.getLogger().warning(
           "The arena '" + event.getArena().getArenaName()
               + "' doesn't have any group allotted to it. GroupStats won't be affected due to this.");

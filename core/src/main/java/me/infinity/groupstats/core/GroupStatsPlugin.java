@@ -2,7 +2,11 @@ package me.infinity.groupstats.core;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+import java.util.concurrent.ConcurrentHashMap;
 import lombok.Getter;
+import me.infinity.groupstats.api.GroupNode;
 import me.infinity.groupstats.core.manager.DatabaseManager;
 import me.infinity.groupstats.core.manager.GroupManager;
 import org.bukkit.command.CommandExecutor;
@@ -17,8 +21,10 @@ public final class GroupStatsPlugin extends JavaPlugin implements CommandExecuto
   public static final Gson GSON = new GsonBuilder()
       .excludeFieldsWithoutExposeAnnotation()
       .disableHtmlEscaping()
-      .serializeNulls()
       .create();
+
+  public static final Type STATISTIC_MAP_TYPE = new TypeToken<ConcurrentHashMap<String, GroupNode>>() {
+  }.getType();
 
   private DatabaseManager databaseManager;
   private GroupManager groupManager;
@@ -42,9 +48,11 @@ public final class GroupStatsPlugin extends JavaPlugin implements CommandExecuto
     }
 
     this.getLogger().info("Loading the plugin, please wait...");
+
     this.databaseManager = new DatabaseManager(this);
     this.groupManager = new GroupManager(this);
     new GroupStatsExpansion(this).register();
+
     this.getLogger().info("Loaded the plugin successfully.");
   }
 

@@ -44,7 +44,7 @@ public class DatabaseManager {
     if (this.dbEnabled) {
       hikariConfig.setJdbcUrl(
           "jdbc:mysql://" + this.address + ":" + this.port + "/" + this.database);
-      instance.getLogger().info("[DB] Starting connection to database with MySQL");
+      instance.getLogger().info("Starting connection to database with MySQL");
     } else {
       File database = new File(instance.getDataFolder(), "statistics.db");
       if (!database.exists()) {
@@ -52,14 +52,14 @@ public class DatabaseManager {
       }
       hikariConfig.setJdbcUrl("jdbc:sqlite:" + database.getPath());
       hikariConfig.setDriverClassName("org.sqlite.JDBC");
-      instance.getLogger().info("[DB] Starting connection to database with SQLite");
+      instance.getLogger().info("Starting connection to database with SQLite");
     }
     this.hikariDataSource = new HikariDataSource(hikariConfig);
     this.connectionSource = new DataSourceConnectionSource(hikariDataSource,
         hikariDataSource.getJdbcUrl());
 
     if (hikariDataSource.isRunning()) {
-      instance.getLogger().info("[DB] Established connection to database successfully.");
+      instance.getLogger().info("Established connection to database successfully.");
     }
 
   }
@@ -77,7 +77,7 @@ public class DatabaseManager {
 
   public void closeDatabase() {
     this.hikariDataSource.close();
-    instance.getLogger().info("[DB] Disconnected to database successfully.");
+    instance.getLogger().info("Disconnected to database successfully.");
   }
 
 }

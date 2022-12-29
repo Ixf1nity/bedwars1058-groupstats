@@ -9,12 +9,6 @@ public class GroupUpdateTask implements Runnable {
 
   @Override
   public void run() {
-    if (groupManager.getInstance().getServer().getOnlinePlayers().isEmpty()) {
-      return;
-    }
-    if (groupManager.getGroupProfileCache().isEmpty()) {
-      return;
-    }
     groupManager.saveAllAsync();
   }
 }

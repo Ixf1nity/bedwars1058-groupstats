@@ -13,11 +13,6 @@ public class GroupNode {
   @Expose
   private int gamesPlayed, bedsBroken, bedsLost, kills, deaths, finalKills, finalDeaths, wins, losses, winstreak, highestWinstreak;
 
-  private double kdr = (double) kills / deaths;
-  private double fkdr = (double) finalKills / finalDeaths;
-  private double bblr = (double) bedsBroken / bedsLost;
-  private double wlr = (double) wins / losses;
-
   public GroupNode() {
     this.gamesPlayed = 0;
     this.bedsBroken = 0;

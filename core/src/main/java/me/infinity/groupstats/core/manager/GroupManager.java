@@ -13,6 +13,7 @@ import me.infinity.groupstats.core.GroupProfile;
 import me.infinity.groupstats.core.GroupStatsPlugin;
 import me.infinity.groupstats.core.listener.GroupStatsListener;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -23,6 +24,7 @@ public class GroupManager implements Listener {
 
   private final GroupStatsPlugin instance;
   private final Dao<GroupProfile, UUID> groupProfiles;
+
   private Map<UUID, GroupProfile> groupProfileCache;
 
   @SneakyThrows
@@ -64,30 +66,40 @@ public class GroupManager implements Listener {
 
   @SneakyThrows
   public void save(GroupProfile groupProfile) {
-    groupProfile.setData(GroupStatsPlugin.GSON.toJson(groupProfile.getGroupStatistics()));
+    groupProfile.setData(GroupStatsPlugin.GSON.toJson(
+        groupProfile.getGroupStatistics())); // Update data and parse object to string
     groupProfiles.update(groupProfile);
   }
 
   public void saveAllAsync() {
     instance.getDatabaseManager().getHikariExecutor()
-        .execute(() -> this.groupProfileCache.values().forEach(this::save));
+        .execute(() -> {
+          if (this.getInstance().getServer().getOnlinePlayers().isEmpty()) {
+            return;
+          }
+          if (this.getGroupProfileCache().isEmpty()) {
+            return;
+          }
+          this.groupProfileCache.values().forEach(this::save);
+        });
   }
 
-  @EventHandler
+  @EventHandler(priority = EventPriority.LOW)
   public void onJoin(PlayerJoinEvent event) {
     instance.getDatabaseManager().getHikariExecutor().execute(() -> {
-      groupProfileCache.putIfAbsent(event.getPlayer().getUniqueId(),
-          this.fetchLoad(event.getPlayer().getUniqueId()));
+      GroupProfile groupProfile = this.fetchLoad(event.getPlayer().getUniqueId());
+      groupProfile.setGroupStatistics(GroupStatsPlugin.GSON.fromJson(groupProfile.getData(),
+          GroupStatsPlugin.STATISTIC_MAP_TYPE));
+      groupProfileCache.put(event.getPlayer().getUniqueId(), groupProfile);
     });
   }
 
-  @EventHandler
+  @EventHandler(priority = EventPriority.LOW)
   public void onQuit(PlayerQuitEvent event) {
     instance.getDatabaseManager().getHikariExecutor().execute(() -> {
       this.save(groupProfileCache.get(event.getPlayer().getUniqueId()));
       this.groupProfileCache.remove(event.getPlayer().getUniqueId());
     });
   }
-
 }
 
