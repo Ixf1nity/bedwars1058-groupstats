@@ -49,7 +49,7 @@ public class GroupStatsExpansion extends PlaceholderExpansion {
 
     GroupProfile profile = instance.getGroupManager().fetchUnsafe(player.getUniqueId());
     if (profile == null) {
-      return "PLAYER_DATA_NOT_FOUND";
+      return "0";
     }
 
     ConcurrentHashMap<String, GroupNode> stats = GroupStatsPlugin.GSON.fromJson(profile.getData(),
@@ -129,7 +129,7 @@ public class GroupStatsExpansion extends PlaceholderExpansion {
           result = String.valueOf(this.getRatio(w, l));
           break;
         default:
-          result = "INVALID_STATISTICS";
+          result = "0";
           break;
       }
       return result;
@@ -137,7 +137,7 @@ public class GroupStatsExpansion extends PlaceholderExpansion {
 
     GroupNode groupNode = stats.get(groupName);
     if (groupNode == null) {
-      return "NO_DATA";
+      return "0";
     }
 
     switch (statisticType) {
@@ -187,7 +187,7 @@ public class GroupStatsExpansion extends PlaceholderExpansion {
         result = String.valueOf(this.getRatio(groupNode, "wlr"));
         break;
       default:
-        result = "INVALID_STATISTIC";
+        result = "0";
         break;
     }
     return result;
