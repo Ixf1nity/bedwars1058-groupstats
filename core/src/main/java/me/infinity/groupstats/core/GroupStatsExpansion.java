@@ -1,5 +1,7 @@
 package me.infinity.groupstats.core;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.concurrent.ConcurrentHashMap;
 import lombok.RequiredArgsConstructor;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -196,33 +198,35 @@ public class GroupStatsExpansion extends PlaceholderExpansion {
   public double getRatio(GroupNode groupNode, String type) {
     switch (type) {
       case "kdr":
-        if (groupNode.getDeaths() == 0) {
-          return 0.00;
+        int deaths = groupNode.getDeaths();
+        if (deaths == 0) {
+          deaths = 1;
         }
-        return (double) groupNode.getKills() / groupNode.getDeaths();
+        return this.getRatio(groupNode.getKills(), deaths);
       case "fkdr":
-        if (groupNode.getFinalDeaths() == 0) {
-          return 0.00;
+        int finalDeaths = groupNode.getFinalDeaths();
+        if (finalDeaths == 0) {
+          finalDeaths = 1;
         }
-        return (double) groupNode.getFinalKills() / groupNode.getFinalDeaths();
+        return this.getRatio(groupNode.getFinalKills(), finalDeaths);
       case "bblr":
-        if (groupNode.getBedsLost() == 0) {
-          return 0.00;
+        int bedsLost = groupNode.getBedsLost();
+        if (bedsLost == 0) {
+          bedsLost = 1;
         }
-        return (double) groupNode.getBedsBroken() / groupNode.getBedsLost();
+        return this.getRatio(groupNode.getBedsBroken(), bedsLost);
       case "wlr":
-        if (groupNode.getLosses() == 0) {
-          return 0.00;
+        int losses = groupNode.getLosses();
+        if (losses == 0) {
+          losses = 1;
         }
-        return (double) groupNode.getWins() / groupNode.getLosses();
+        return this.getRatio(groupNode.getWins(), losses);
     }
     return 69;
   }
 
   public double getRatio(int i1, int i2) {
-    if (i2 == 0) {
-      return 0;
-    }
-    return (double) i1 / i2;
+    double value = (double) i1/i2;
+    return new BigDecimal(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
   }
 }
