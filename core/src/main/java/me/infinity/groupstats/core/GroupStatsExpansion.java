@@ -226,7 +226,12 @@ public class GroupStatsExpansion extends PlaceholderExpansion {
   }
 
   public double getRatio(int i1, int i2) {
-    double value = (double) i1/i2;
+    if (i2 == 0) {
+      // Handle division by zero error here, e.g., return Double.NaN or throw an exception.
+      return Double.NaN;
+    }
+
+    double value = (double) i1 / i2;
     return new BigDecimal(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
   }
 }
