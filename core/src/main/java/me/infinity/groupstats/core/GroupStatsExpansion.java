@@ -22,7 +22,7 @@ public class GroupStatsExpansion extends PlaceholderExpansion {
 
   @Override
   public @NotNull String getAuthor() {
-    return "I6y";
+    return "infinity";
   }
 
   @Override
@@ -196,33 +196,36 @@ public class GroupStatsExpansion extends PlaceholderExpansion {
   }
 
   public double getRatio(GroupNode groupNode, String type) {
+    double result;
     switch (type) {
       case "kdr":
         int deaths = groupNode.getDeaths();
         if (deaths == 0) {
           deaths = 1;
         }
-        return this.getRatio(groupNode.getKills(), deaths);
+        result = this.getRatio(groupNode.getKills(), deaths);
       case "fkdr":
         int finalDeaths = groupNode.getFinalDeaths();
         if (finalDeaths == 0) {
           finalDeaths = 1;
         }
-        return this.getRatio(groupNode.getFinalKills(), finalDeaths);
+        result = this.getRatio(groupNode.getFinalKills(), finalDeaths);
       case "bblr":
         int bedsLost = groupNode.getBedsLost();
         if (bedsLost == 0) {
           bedsLost = 1;
         }
-        return this.getRatio(groupNode.getBedsBroken(), bedsLost);
+        result = this.getRatio(groupNode.getBedsBroken(), bedsLost);
       case "wlr":
         int losses = groupNode.getLosses();
         if (losses == 0) {
           losses = 1;
         }
-        return this.getRatio(groupNode.getWins(), losses);
+        result = this.getRatio(groupNode.getWins(), losses);
+      default:
+        result = Double.NaN;
     }
-    return 69;
+    return result;
   }
 
   public double getRatio(int i1, int i2) {
