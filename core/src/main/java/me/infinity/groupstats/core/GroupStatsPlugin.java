@@ -12,6 +12,7 @@ import me.infinity.groupstats.core.manager.GroupManager;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bstats.bukkit.Metrics;
 
 @Getter
 public final class GroupStatsPlugin extends JavaPlugin implements CommandExecutor {
@@ -54,6 +55,7 @@ public final class GroupStatsPlugin extends JavaPlugin implements CommandExecuto
     this.groupManager = new GroupManager(this);
     new GroupStatsExpansion(this).register();
 
+    new Metrics(this, 16815);
     this.getLogger().info("Loaded the plugin successfully.");
     this.startupCompleted = true;
   }
