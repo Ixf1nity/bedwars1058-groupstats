@@ -30,7 +30,7 @@ jobs:
     - name: Build with Maven
       run: |
         mvn -B package --file pom.xml
-        mkdir staging && cp target/*.jar staging
+        mkdir staging && cp ./build/target/*.jar staging
     - name: Persist workflow data as artifacts
       uses: actions/upload-artifact@v2
       with:
