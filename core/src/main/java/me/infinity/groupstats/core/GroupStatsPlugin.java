@@ -62,7 +62,7 @@ public final class GroupStatsPlugin extends JavaPlugin implements CommandExecuto
   public void onDisable() {
     this.getLogger().info("Disabling the plugin, please wait...");
     if (startupCompleted) {
-      if (isBw1058()) this.groupManager.saveAllAsync();
+      if (isBw1058()) this.groupManager.saveAll();
       this.databaseManager.closeDatabase();
     }
     this.getLogger().info("Plugin disabled successfully.");
