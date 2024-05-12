@@ -3,16 +3,18 @@ package me.infinity.groupstats.core;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
-import java.util.concurrent.ConcurrentHashMap;
 import lombok.Getter;
 import me.infinity.groupstats.api.GroupNode;
 import me.infinity.groupstats.core.manager.DatabaseManager;
 import me.infinity.groupstats.core.manager.GroupManager;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bstats.bukkit.Metrics;
+
+import java.lang.reflect.Type;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
 public final class GroupStatsPlugin extends JavaPlugin implements CommandExecutor {
@@ -55,7 +57,10 @@ public final class GroupStatsPlugin extends JavaPlugin implements CommandExecuto
     this.groupManager = new GroupManager(this);
     new GroupStatsExpansion(this).register();
 
-    new Metrics(this, 16815);
+    Metrics metrics = new Metrics(this, 16815);
+    metrics.addCustomChart(new SimplePie("bedwars_plugin_type", () -> "bedwars1058"));
+    metrics.addCustomChart(new SimplePie("database_type", () -> databaseManager.isDbEnabled() ? "MySQL" : "SQLite"));
+
     this.getLogger().info("Loaded the plugin successfully.");
     this.startupCompleted = true;
   }
