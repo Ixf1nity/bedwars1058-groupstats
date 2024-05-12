@@ -72,18 +72,23 @@ public class GroupManager implements Listener {
     groupProfiles.update(groupProfile);
   }
 
+  public void saveAll() {
+    if (this.getInstance().getServer().getOnlinePlayers().isEmpty()) {
+      return;
+    }
+    if (this.getGroupProfileCache().isEmpty()) {
+      return;
+    }
+    this.groupProfileCache.values().forEach(this::save);
+  }
+  
   public void saveAllAsync() {
     instance.getDatabaseManager().getHikariExecutor()
         .execute(() -> {
-          if (this.getInstance().getServer().getOnlinePlayers().isEmpty()) {
-            return;
-          }
-          if (this.getGroupProfileCache().isEmpty()) {
-            return;
-          }
-          this.groupProfileCache.values().forEach(this::save);
+          this.saveAll();
         });
   }
+  
 
   @EventHandler(priority = EventPriority.LOW)
   public void onJoin(PlayerJoinEvent event) {
