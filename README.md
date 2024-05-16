@@ -2,7 +2,7 @@
  A BedWars1058 addon that adds placeholders for getting statistics of an player filtered by a Arena Group.  Supports MySQL and SQLite. 
  
 ## Placeholders
-#### NOTE:  Use overAll as <group> to get overall statistics. Example, %groupstats_overAll_gamesPlayed%
+> ### NOTE:  Use overAll as <group> to get overall statistics. Example, %groupstats_overAll_gamesPlayed%
 
 |Placeholder                          |Returns                      |
 |-----------------------------------------------|-----------------------------|
@@ -21,6 +21,55 @@
 |`%groupstats_<group>_fkdr%`            |player's final kill/death ratio.            |
 |`%groupstats_<group>_bblr%`            |player's beds broken/lost ratio.
 |`%groupstats_<group>_wlr%`            |player's win/lose ratio.            |            |
+
+## Developer API
+> ### Maven Repository
+```xml
+<repositories>
+ <repository>
+  <id>jitpack.io</id>
+  <url>https://jitpack.io</url>
+ </repository>
+</repositories>
+```
+```xml
+<dependencies>
+ <dependency>
+  <groupId>com.github.Ixf1nity</groupId>
+  <artifactId>bedwars1058-groupstats</artifactId>
+  <version>api-SNAPSHOT</version>
+ </dependency>
+</dependencies>
+```
+
+
+> #### If you want to use the API make sure to load your plugin after BedWars1058-GroupStats .
+
+1. Add it as softdepend in plugin.yml: softdepend: ``[BedWars1058-GroupStats]``
+2. Check if BedWars1058-GroupStats is on the server:
+
+```java
+@Override
+public void onEnable() {
+    //Disable if pl not found
+    if (Bukkit.getPluginManager().getPlugin("BedWars1058-GroupStats") == null) {
+            getLogger().severe("BedWars1058-GroupStats was not found. Disabling...");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+    }
+}
+```
+> #### Initializing the API:
+```java
+GroupStatsAPI groupStatsAPI = Bukkit.getServicesManager().getRegistration(GroupStatsAPI.class).getProvider();
+```
+> #### Fetching player statistics: (example of fetching winstreak)
+```java
+// uuid perameter is the uuid of the player
+// cache perameter is a boolean, if true, the stats would be fetched from the cache (realtime). If false, the stats would be fetched from the database.
+// group perameter specifics which group data is demanded.
+GroupStatsAPI.getPlayerStatisticsMap(uuid, cache).get(group).getWinstreak(); // retuns winstreak of specified group
+```
 
 Questions? [Join the I6y's Hub Discord Server](https://discord.gg/UTu2vRUuge)
 
