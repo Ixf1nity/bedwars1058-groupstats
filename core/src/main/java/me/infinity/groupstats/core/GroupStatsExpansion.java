@@ -1,14 +1,15 @@
 package me.infinity.groupstats.core;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.concurrent.ConcurrentHashMap;
 import lombok.RequiredArgsConstructor;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.infinity.groupstats.api.GroupNode;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.concurrent.ConcurrentHashMap;
 
 @RequiredArgsConstructor
 public class GroupStatsExpansion extends PlaceholderExpansion {
@@ -204,26 +205,31 @@ public class GroupStatsExpansion extends PlaceholderExpansion {
           deaths = 1;
         }
         result = this.getRatio(groupNode.getKills(), deaths);
+        break;
       case "fkdr":
         int finalDeaths = groupNode.getFinalDeaths();
         if (finalDeaths == 0) {
           finalDeaths = 1;
         }
         result = this.getRatio(groupNode.getFinalKills(), finalDeaths);
+        break;
       case "bblr":
         int bedsLost = groupNode.getBedsLost();
         if (bedsLost == 0) {
           bedsLost = 1;
         }
         result = this.getRatio(groupNode.getBedsBroken(), bedsLost);
+        break;
       case "wlr":
         int losses = groupNode.getLosses();
         if (losses == 0) {
           losses = 1;
         }
         result = this.getRatio(groupNode.getWins(), losses);
+        break;
       default:
         result = Double.NaN;
+        break;
     }
     return result;
   }
