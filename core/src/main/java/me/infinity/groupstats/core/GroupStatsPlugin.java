@@ -5,8 +5,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
 import me.infinity.groupstats.api.GroupNode;
+import me.infinity.groupstats.api.GroupStatsAPI;
 import me.infinity.groupstats.core.manager.DatabaseManager;
 import me.infinity.groupstats.core.manager.GroupManager;
+import me.infinity.groupstats.core.manager.RequestsManager;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bukkit.command.CommandExecutor;
@@ -32,6 +34,10 @@ public final class GroupStatsPlugin extends JavaPlugin implements CommandExecuto
 
   private DatabaseManager databaseManager;
   private GroupManager groupManager;
+  private GroupStatsExpansion groupStatsExpansion;
+  private RequestsManager requestsManager;
+
+  private GroupStatsAPI groupStatsAPI;
 
   @Override
   public void onEnable() {
@@ -55,11 +61,17 @@ public final class GroupStatsPlugin extends JavaPlugin implements CommandExecuto
 
     this.databaseManager = new DatabaseManager(this);
     this.groupManager = new GroupManager(this);
-    new GroupStatsExpansion(this).register();
+
+    this.groupStatsExpansion = new GroupStatsExpansion(this);
+    this.groupStatsExpansion.register();
+
+    this.requestsManager = new RequestsManager(this);
 
     Metrics metrics = new Metrics(this, 16815);
     metrics.addCustomChart(new SimplePie("bedwars_plugin_type", () -> "bedwars1058"));
     metrics.addCustomChart(new SimplePie("database_type", () -> databaseManager.isDbEnabled() ? "MySQL" : "SQLite"));
+
+    this.groupStatsAPI = new API(this);
 
     this.getLogger().info("Loaded the plugin successfully.");
     this.startupCompleted = true;
@@ -71,6 +83,9 @@ public final class GroupStatsPlugin extends JavaPlugin implements CommandExecuto
     if (startupCompleted) {
       if (isBw1058()) this.groupManager.saveAll();
       this.databaseManager.closeDatabase();
+    }
+    if (requestsManager != null) {
+      requestsManager.onDisable();
     }
     this.getLogger().info("Plugin disabled successfully.");
   }

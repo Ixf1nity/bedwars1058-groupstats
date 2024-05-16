@@ -8,5 +8,11 @@ database-credentials:
   password: "pass"
   useSSL: false
 
-#  IGNORE IF YOU ARE RUNNING THIS PLUGIN ON A BW PROXY INSTANCE
+# IGNORE IF YOU ARE RUNNING THIS PLUGIN ON A BW PROXY INSTANCE
 update-timer: 1 # At how much minute delay should the plugin save player data.
+
+# Should we enable REST API for group stats, please view our wiki for more information
+# DO NOT CHANGE THIS IF YOU DO NOT KNOW WHAT YOU ARE DOING
+api:
+  enabled: false
+  port: 8080
