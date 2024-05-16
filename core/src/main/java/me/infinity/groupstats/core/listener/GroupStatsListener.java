@@ -9,7 +9,6 @@ import com.andrei1058.bedwars.api.events.gameplay.GameStateChangeEvent;
 import com.andrei1058.bedwars.api.events.player.PlayerBedBreakEvent;
 import com.andrei1058.bedwars.api.events.player.PlayerKillEvent;
 import com.andrei1058.bedwars.api.events.player.PlayerLeaveArenaEvent;
-import java.util.UUID;
 import lombok.SneakyThrows;
 import me.infinity.groupstats.api.GroupNode;
 import me.infinity.groupstats.core.GroupProfile;
@@ -18,6 +17,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+
+import java.util.UUID;
 
 public class GroupStatsListener implements Listener {
 
@@ -70,7 +71,7 @@ public class GroupStatsListener implements Listener {
       GroupProfile victim = instance.getGroupManager().getGroupProfileCache()
           .get(player.getUniqueId());
       GroupNode victimGroupNode = victim.getGroupStatistics().get(event.getArena().getGroup());
-      victimGroupNode.setBedsBroken(groupNode.getBedsLost() + 1);
+      victimGroupNode.setBedsLost(groupNode.getBedsLost() + 1);
     });
   }
 
