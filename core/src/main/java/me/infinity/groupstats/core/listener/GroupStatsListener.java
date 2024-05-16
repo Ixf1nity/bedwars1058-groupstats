@@ -71,7 +71,7 @@ public class GroupStatsListener implements Listener {
       GroupProfile victim = instance.getGroupManager().getGroupProfileCache()
           .get(player.getUniqueId());
       GroupNode victimGroupNode = victim.getGroupStatistics().get(event.getArena().getGroup());
-      victimGroupNode.setBedsLost(groupNode.getBedsLost() + 1);
+      victimGroupNode.setBedsLost(victimGroupNode.getBedsLost() + 1);
     });
   }
 
