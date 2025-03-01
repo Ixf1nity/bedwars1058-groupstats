@@ -61,7 +61,7 @@ public class RequestsManager {
                         return getFailJson("Invalid name provided");
                     }
 
-                    JSONObject json = this.getPlayerStats(offlinePlayer);
+                    JSONObject json = getPlayerStats(offlinePlayer);
                     if (json == null) {
                         return getFailJson("Player data is empty");
                     }
