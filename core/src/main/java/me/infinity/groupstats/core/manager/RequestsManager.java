@@ -50,7 +50,7 @@ public class RequestsManager {
                             UUID uuid = UUID.fromString(req.queryParams("uuid"));
                             offlinePlayer = Bukkit.getOfflinePlayer(uuid);
                         } catch (IllegalArgumentException ex) {
-                            return this.getFailJson("Invalid UUID provided");
+                            return getFailJson("Invalid UUID provided");
                         }
                     } else if (params.contains("name")) {
                         String username = req.queryParams("name");
@@ -58,12 +58,12 @@ public class RequestsManager {
                         offlinePlayer = Bukkit.getOfflinePlayer(username);
                     } else {
                         res.status(411);
-                        return this.getFailJson("Invalid name provided");
+                        return getFailJson("Invalid name provided");
                     }
 
                     JSONObject json = this.getPlayerStats(offlinePlayer);
                     if (json == null) {
-                        return this.getFailJson("Player data is empty");
+                        return getFailJson("Player data is empty");
                     }
                     res.status(201);
                     return json.toString();
