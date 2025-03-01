@@ -50,7 +50,7 @@ public class RequestsManager {
                             UUID uuid = UUID.fromString(req.queryParams("uuid"));
                             offlinePlayer = Bukkit.getOfflinePlayer(uuid);
                         } catch (IllegalArgumentException ex) {
-                            return getFailJson("Invalid UUID provided");
+                            return this.getFailJson("Invalid UUID provided");
                         }
                     } else if (params.contains("name")) {
                         String username = req.queryParams("name");
@@ -58,12 +58,12 @@ public class RequestsManager {
                         offlinePlayer = Bukkit.getOfflinePlayer(username);
                     } else {
                         res.status(411);
-                        return getFailJson("Invalid name provided");
+                        return this.getFailJson("Invalid name provided");
                     }
 
-                    JSONObject json = getPlayerStats(offlinePlayer);
+                    JSONObject json = this.getPlayerStats(offlinePlayer);
                     if (json == null) {
-                        return getFailJson("Player data is empty");
+                        return this.getFailJson("Player data is empty");
                     }
                     res.status(201);
                     return json.toString();
@@ -98,77 +98,8 @@ public class RequestsManager {
         JSONObject json = new JSONObject();
         json.put("status", "Success");
         json.put("name", offlinePlayer.getName());
-
-        ConcurrentHashMap<String, GroupNode> stats = GroupStatsPlugin.GSON.fromJson(profile.getData(),
-                GroupStatsPlugin.STATISTIC_MAP_TYPE);
-
-        JSONObject statsObject = new JSONObject();
-
-        //<editor-fold desc="Overall stats">
-        JSONObject overallStats = new JSONObject();
-        overallStats.put("games played", stats.isEmpty() ? 0
-                : stats.values().stream().mapToInt(GroupNode::getGamesPlayed).sum());
-        overallStats.put("beds broken", stats.isEmpty() ? 0
-                : stats.values().stream().mapToInt(GroupNode::getBedsBroken).sum());
-        overallStats.put("beds lost", stats.isEmpty() ? 0
-                : stats.values().stream().mapToInt(GroupNode::getBedsLost).sum());
-        overallStats.put("kills", stats.isEmpty() ? 0
-                : stats.values().stream().mapToInt(GroupNode::getKills).sum());
-        overallStats.put("deaths", stats.isEmpty() ? 0
-                : stats.values().stream().mapToInt(GroupNode::getDeaths).sum());
-        overallStats.put("final kills", stats.isEmpty() ? 0
-                : stats.values().stream().mapToInt(GroupNode::getFinalKills).sum());
-        overallStats.put("final deaths", stats.isEmpty() ? 0
-                : stats.values().stream().mapToInt(GroupNode::getFinalDeaths).sum());
-        overallStats.put("wins", stats.isEmpty() ? 0
-                : stats.values().stream().mapToInt(GroupNode::getWins).sum());
-        overallStats.put("losses", stats.isEmpty() ? 0
-                : stats.values().stream().mapToInt(GroupNode::getLosses).sum());
-        overallStats.put("winstreak", stats.isEmpty() ? 0
-                : stats.values().stream().mapToInt(GroupNode::getWinstreak).sum());
-        overallStats.put("highest winstreak", stats.isEmpty() ? 0
-                : stats.values().stream().mapToInt(GroupNode::getHighestWinstreak).sum());
-        overallStats.put("kdr", instance.getGroupStatsExpansion().getRatio(
-                stats.isEmpty() ? 0 : stats.values().stream().mapToInt(GroupNode::getKills).sum(),
-                stats.isEmpty() ? 0 : stats.values().stream().mapToInt(GroupNode::getDeaths).sum()));
-        overallStats.put("fkdr", instance.getGroupStatsExpansion().getRatio(
-                stats.isEmpty() ? 0 : stats.values().stream().mapToInt(GroupNode::getFinalKills).sum(),
-                stats.isEmpty() ? 0 : stats.values().stream().mapToInt(GroupNode::getFinalDeaths).sum()));
-        overallStats.put("bblr", instance.getGroupStatsExpansion().getRatio(
-                stats.isEmpty() ? 0 : stats.values().stream().mapToInt(GroupNode::getBedsBroken).sum(),
-                stats.isEmpty() ? 0 : stats.values().stream().mapToInt(GroupNode::getBedsLost).sum()));
-        overallStats.put("wlr", instance.getGroupStatsExpansion().getRatio(
-                stats.isEmpty() ? 0 : stats.values().stream().mapToInt(GroupNode::getWins).sum(),
-                stats.isEmpty() ? 0 : stats.values().stream().mapToInt(GroupNode::getLosses).sum()));
-        statsObject.put("over-all", overallStats);
-        //</editor-fold>
-
-
-        //<editor-fold desc="Per group stats">
-        stats.forEach((name, node) -> {
-            JSONObject groupJson = new JSONObject();
-
-            groupJson.put("games played", node.getGamesPlayed());
-            groupJson.put("beds broken", node.getBedsBroken());
-            groupJson.put("beds lost", node.getBedsLost());
-            groupJson.put("kills", node.getKills());
-            groupJson.put("deaths", node.getDeaths());
-            groupJson.put("final kills", node.getFinalKills());
-            groupJson.put("final deaths", node.getFinalDeaths());
-            groupJson.put("wins", node.getWins());
-            groupJson.put("losses", node.getLosses());
-            groupJson.put("winstreak", node.getWinstreak());
-            groupJson.put("highest winstreak", node.getHighestWinstreak());
-            groupJson.put("kdr", instance.getGroupStatsExpansion().getRatio(node, "kdr"));
-            groupJson.put("fkdr", instance.getGroupStatsExpansion().getRatio(node, "fkdr"));
-            groupJson.put("bblr", instance.getGroupStatsExpansion().getRatio(node, "bblr"));
-            groupJson.put("wlr", instance.getGroupStatsExpansion().getRatio(node, "wlr"));
-
-            statsObject.put(name, groupJson);
-        });
-        //</editor-fold>
-
-        json.put("stats", statsObject);
+        json.put("uuid", offlinePlayer.getUniqueId());
+        json.put("stats", profile.getData());
 
         return json;
     }

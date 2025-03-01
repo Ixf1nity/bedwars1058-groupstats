@@ -22,10 +22,14 @@ public class API implements GroupStatsAPI {
         Map<String, GroupNode> result;
         if (cache) {
             Optional<GroupProfile> groupProfileOptional = Optional.ofNullable(instance.getGroupManager().getGroupProfileCache().get(uuid));
-            result = groupProfileOptional.map(GroupProfile::getGroupStatistics).orElse(null);
+            if (groupProfileOptional.isPresent()) {
+                return groupProfileOptional.get();
+            } else return null;
         } else {
             Optional<GroupProfile> groupProfileOptional = Optional.ofNullable(instance.getGroupManager().fetchUnsafe(uuid));
-            result = groupProfileOptional.map(GroupProfile::getGroupStatistics).orElse(null);
+            if (groupProfileOptional.isPresent()) {
+                return groupProfileOptional.get();
+            } else return null;
         }
         return result;
     }

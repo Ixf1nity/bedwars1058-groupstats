@@ -28,4 +28,9 @@ public class GroupProfile {
     this.uniqueId = uniqueId;
     this.data = GroupStatsPlugin.GSON.toJson(groupStatistics);
   }
+
+  @Override
+  public Map<String, GroupNode> getGroupStatistics() {
+    return GroupStatsPlugin.GSON.fromJson(this.data, GroupStatsPlugin.STATISTIC_MAP_TYPE);
+  }
 }
