@@ -29,7 +29,6 @@ public class GroupProfile {
     this.data = GroupStatsPlugin.GSON.toJson(groupStatistics);
   }
 
-  @Override
   public Map<String, GroupNode> getGroupStatistics() {
     return GroupStatsPlugin.GSON.fromJson(this.data, GroupStatsPlugin.STATISTIC_MAP_TYPE);
   }
