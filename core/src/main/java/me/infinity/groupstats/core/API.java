@@ -19,7 +19,6 @@ public class API implements GroupStatsAPI {
 
     @Override
     public Map<String, GroupNode> getPlayerStatisticsMap(UUID uuid, boolean cache) {
-        Map<String, GroupNode> result;
         if (cache) {
             Optional<GroupProfile> groupProfileOptional = Optional.ofNullable(instance.getGroupManager().getGroupProfileCache().get(uuid));
             if (groupProfileOptional.isPresent()) {
@@ -31,6 +30,5 @@ public class API implements GroupStatsAPI {
                 return groupProfileOptional.get().getGroupStatistics();
             } else return null;
         }
-        return result;
     }
 }
