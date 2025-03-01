@@ -23,12 +23,12 @@ public class API implements GroupStatsAPI {
         if (cache) {
             Optional<GroupProfile> groupProfileOptional = Optional.ofNullable(instance.getGroupManager().getGroupProfileCache().get(uuid));
             if (groupProfileOptional.isPresent()) {
-                return groupProfileOptional.get();
+                return groupProfileOptional.get().getGroupStatistics();
             } else return null;
         } else {
             Optional<GroupProfile> groupProfileOptional = Optional.ofNullable(instance.getGroupManager().fetchUnsafe(uuid));
             if (groupProfileOptional.isPresent()) {
-                return groupProfileOptional.get();
+                return groupProfileOptional.get().getGroupStatistics();
             } else return null;
         }
         return result;
